@@ -1,16 +1,29 @@
-# This is a sample Python script.
+import math
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
 
+data = [
+    (0,0,0),
+    (0,1,0),
+    (1,0,0),
+    (1,1,1)
+]
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+w1 = 5
+w2 = 2
+bias = -10
+learning_rate = 0.1
 
+for iteration in range(100):
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    for x1, x2, target in data:
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        output = sigmoid(w1 * x1 + w2 * x2 + bias)
+        error = target - output
+
+        w1 = w1 + (x1 * error * learning_rate)
+        w2 = w2 + (x2 * error * learning_rate)
+        bias = bias + (error * learning_rate)
+
+        print(output, error, w1, w2, bias)
