@@ -1,0 +1,49 @@
+import math
+import matplotlib.pyplot as plt
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+data = [
+    (0,0,0),
+    (0,1,0),
+    (1,0,0),
+    (1,1,1)
+]
+
+w1 = 5
+w2 = 2
+bias = -10
+learning_rate = 0.1
+
+outputs = []
+errors = []
+w1_hist = []
+w2_hist = []
+bias_hist = []
+
+for epoch in range(100):
+
+    for x1, x2, target in data:
+
+        output = sigmoid(w1 * x1 + w2 * x2 + bias)
+        error = target - output
+
+        w1 = w1 + x1 * error * learning_rate
+        w2 = w2 + x2 * error * learning_rate
+        bias = bias + error * learning_rate
+
+        outputs.append(output)
+        errors.append(error)
+        w1_hist.append(w1)
+        w2_hist.append(w2)
+        bias_hist.append(bias)
+
+plt.plot(outputs, label="output")
+plt.plot(errors, label="error")
+plt.plot(w1_hist, label="w1")
+plt.plot(w2_hist, label="w2")
+plt.plot(bias_hist, label="bias")
+
+plt.legend()
+plt.show()
